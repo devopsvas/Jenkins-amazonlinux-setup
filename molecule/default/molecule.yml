@@ -1,0 +1,16 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: amazonlinux2
+    image: amazonlinux:2
+    privileged: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: converge.yml
+
+verifier:
+  name: testinfra
