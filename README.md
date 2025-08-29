@@ -8,3 +8,7 @@ Just update your public IP in trigger.yml
 just add your server root private key  Github Action secret in variable as EC2_SSH_KEY. 
 
 Booom !!! your Jenkins is ready in the EC2 instance.
+
+
+-
+  Vasanth
