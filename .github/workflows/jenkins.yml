@@ -1,30 +1,38 @@
-name: Scheduled Backup
+name: Run Jenkins Setup via Ansible
 
 on:
-  schedule:
-    # Runs every day at 2 AM UTC
-    - cron: "0 2 * * *"
-  workflow_dispatch:  # allows manual trigger too
+  push:
+    paths:
+      - "trigger.yml"   # Only runs when trigger.yml changes
 
 jobs:
-  backup:
+  ansible-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y ansible yq
+
+      - name: Extract EC2 host from trigger.yml
+        id: parse
+        run: |
+          EC2_HOST=$(yq '.servers' trigger.yml)
+          echo "EC2_HOST=$EC2_HOST" >> $GITHUB_ENV
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1  # change to your region
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Create Backup Archive
+      - name: Run Ansible Playbook
         run: |
-          mkdir -p backup
-          tar -czf backup/myapp-$(date +%F-%H-%M).tar.gz .
+          ansible-playbook install.yml \
+            -i "${{ env.EC2_HOST }}," \
+            -u ec2-user \
+            --ssh-extra-args "-o StrictHostKeyChecking=no"
 
-      - name: Upload to S3
-        run: |
-          aws s3 cp backup/ s3://your-s3-bucket-name/backups/ --recursive
