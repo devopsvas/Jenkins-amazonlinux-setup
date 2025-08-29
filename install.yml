@@ -1,7 +1,7 @@
 #Initial version 1
 ---
 - name: Install and Configure Jenkins on Amazon Linux 2
-  hosts: all
+  hosts: localhost
   become: yes
 
   tasks:
