@@ -32,7 +32,7 @@ jobs:
 
       - name: Install Molecule and dependencies
         run: |
-          pip install ansible ansible-lint molecule[docker] pytest testinfra
+          pip install ansible ansible-lint molecule-plugins[docker] pytest testinfra
 
       - name: Run Molecule Tests
         run: molecule test
