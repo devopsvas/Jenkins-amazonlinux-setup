@@ -1,0 +1,36 @@
+---
+- name: Install and Configure Jenkins on Amazon Linux 2
+  hosts: jenkins_server
+  become: yes
+
+  tasks:
+    - name: Update system packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Java (Amazon Linux requires Java 21 for Jenkins)
+      yum:
+        name: java-21-amazon-corretto
+        state: present
+
+    - name: Add Jenkins repo
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Import Jenkins key
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Start and enable Jenkins service
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
