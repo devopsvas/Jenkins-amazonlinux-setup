@@ -34,5 +34,8 @@ jobs:
         run: |
           pip install ansible ansible-lint molecule-plugins[docker] pytest testinfra
 
+      - name: Ansible Syntax Check
+        run: ansible-playbook install.yml --syntax-check
+
       - name: Run Molecule Tests
         run: molecule test
