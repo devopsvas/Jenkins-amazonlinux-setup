@@ -1,7 +1,7 @@
 # Jenkins-amazonlinux-setup
 
 
-This is the automation for setting up Jenkins in EC2 Amazon Linux instance.
+This is the automation for setting up Jenkins in EC2 Amazon Linux instance using Ansible and Github actions.
 
 Just update your public IP in trigger.yml
 
