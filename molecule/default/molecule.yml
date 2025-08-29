@@ -5,12 +5,12 @@ driver:
 platforms:
   - name: amazonlinux2
     image: amazonlinux:2
+    build:
+      context: .
+      dockerfile: Dockerfile.j2
     privileged: true
 
 provisioner:
   name: ansible
-  playbooks:
-    converge: converge.yml
-
-verifier:
-  name: testinfra
+  options:
+    vvv: true
