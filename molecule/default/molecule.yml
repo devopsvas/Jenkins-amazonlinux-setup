@@ -13,5 +13,8 @@ platforms:
 
 provisioner:
   name: ansible
+  playbooks:
+    converge: converge.yml
+    prepare: prepare.yml
   options:
     vvv: true
