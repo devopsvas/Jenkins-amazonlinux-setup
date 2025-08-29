@@ -1,3 +1,4 @@
+#Initial version
 ---
 - name: Install and Configure Jenkins on Amazon Linux 2
   hosts: jenkins_server
