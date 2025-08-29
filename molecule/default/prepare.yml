@@ -4,4 +4,5 @@
   become: true
   tasks:
     - name: Install Python for Ansible
-      raw: yum install -y python3
+      raw: |
+        yum install -y python3
