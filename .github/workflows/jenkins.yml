@@ -3,7 +3,7 @@ name: Run Ansible Playbook for Jenkins
 on:
   push:
     paths:
-      - "install.yml"
+      - "trigger.yml"
 
 jobs:
   ansible-deploy:
