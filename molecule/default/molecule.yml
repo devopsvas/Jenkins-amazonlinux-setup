@@ -9,6 +9,7 @@ platforms:
       context: .
       dockerfile: Dockerfile.j2
     privileged: true
+    command: /sbin/init
 
 provisioner:
   name: ansible
