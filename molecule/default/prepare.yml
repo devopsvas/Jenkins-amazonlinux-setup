@@ -1,0 +1,7 @@
+---
+- name: Prepare instance
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Python for Ansible
+      raw: yum install -y python3
