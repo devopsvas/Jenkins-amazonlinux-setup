@@ -4,7 +4,7 @@ driver:
 
 platforms:
   - name: amazonlinux2
-    image: amazonlinux:2
+    image: geerlingguy/docker-amazonlinux2-ansible:latest
     build:
       context: .
       dockerfile: Dockerfile.j2
