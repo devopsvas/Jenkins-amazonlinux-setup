@@ -33,6 +33,7 @@ jobs:
         run: |
           ansible-playbook install.yml \
             -i "${{ env.EC2_HOST }}," \
-            -u root \
+            -u ec2-user \
+            --become \
             --ssh-extra-args "-o StrictHostKeyChecking=no"
 
