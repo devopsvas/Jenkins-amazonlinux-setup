@@ -1,6 +1,0 @@
-FROM amazonlinux:2
-
-RUN yum update -y && \
-    yum install -y python3 sudo && \
-    alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-    yum clean all
